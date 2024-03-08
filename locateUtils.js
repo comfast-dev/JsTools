@@ -6,11 +6,12 @@
 const isXpath = cssOrXpath => /^[\.\(]*\/.*/.test(cssOrXpath)
 const fixXpath = xpath => xpath.replace(/^\//, "./")
 
-const any$ = (cssOrXpath, parent = document) => !isXpath(cssOrXpath) ? parent.querySelector(cssOrXpath)
+const any$ = (cssOrXpath, parent = document) => !isXpath(cssOrXpath)
+        ? parent.querySelector(cssOrXpath)
         : document.evaluate(fixXpath(cssOrXpath), parent, null, 9, null).singleNodeValue 
 
 const any$$ = (cssOrXpath, parent = document) => {
-    if(!isXpath(cssOrXpath)) return parent.querySelector(cssOrXpath)
+    if(!isXpath(cssOrXpath)) return parent.querySelectorAll(cssOrXpath)
     const query = document.evaluate(fixXpath(cssOrXpath), parent, null, 5, null);
     
     const results = []
